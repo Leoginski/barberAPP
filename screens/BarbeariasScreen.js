@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View, Text } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 
 import BarbeariaCard from "./components/BarbeariaCard";
 
@@ -21,6 +21,11 @@ export default class BarbeariasScreen extends React.Component {
         cep: "36240123",
       },
       {
+        nome: "Barbearia do Malaquias",
+        endereco: "Rua dos Foo Nº 1",
+        cep: "36240123",
+      },
+      {
         nome: "Barbearia do Jão",
         endereco: "Rua dos Trouxas Nº 2",
         cep: "36241234",
@@ -33,15 +38,21 @@ export default class BarbeariasScreen extends React.Component {
     const barbearias = this.state.barbearias;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {barbearias.map((b, index) =>
           <View style={styles.barbeariaContainer} Key={index}>
             <Text style={styles.text}>Nome: {b.nome}</Text>
             <Text style={styles.text}>Endereco: {b.endereco}</Text>
             <Text style={styles.text}>CEP: {b.cep}</Text>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={() => navigate("Detalhes", { state: b })}
+            >
+              <Text style={styles.buttonText}>Detalhes</Text>
+            </TouchableOpacity>
           </View>)
         }
-      </View>
+      </ScrollView>
     );
   }
 }

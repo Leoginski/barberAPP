@@ -16,4 +16,13 @@ export default StyleSheet.create({
     marginTop: 5,
     textAlign: "center",
   },
+  buttonContainer: {
+    backgroundColor: "#0068a5",
+    paddingVertical: 10,
+    marginBottom: 10,
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "#FFFFFF"
+  }
 });
