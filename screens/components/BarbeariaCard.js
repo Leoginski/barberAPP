@@ -10,15 +10,14 @@ import {
 export default class BarbeariaCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
     }
 
     render() {
-        const { navigate } = this.props.navigation;
+        const barbearia = this.props.barbearia;
+
         return (
                 <View>
-                    <Text>Olá Barbearia</Text>
+                    <Text>{barbearia.Nome}</Text>
                 </View>
         );
     }

@@ -30,7 +30,7 @@ const NavigationApp = StackNavigator({
   Menu: {
     screen: MenuScreen,
     navigationOptions: {
-      title: "Menu",
+      title: "The Barber",
       headerStyle: {
         backgroundColor: '#1e272e'
       },

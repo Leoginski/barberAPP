@@ -6,8 +6,12 @@ import BarbeariasScreen from "./BarbeariasScreen";
 import AgendamentosScreen from "./AgendamentosScreen";
 
 var Tabs = TabNavigator({
-  Barbearias: { screen: BarbeariasScreen },
-  Agendamentos: { screen: AgendamentosScreen }
+  Barbearias: { 
+    screen: BarbeariasScreen,
+  },
+  Agendamentos: { 
+    screen: AgendamentosScreen
+    }
 }, {
     tabBarPosition: "bottom",
     swipeEnabled: true,

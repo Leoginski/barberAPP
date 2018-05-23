@@ -5,9 +5,6 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "./styles/AgendamentosScreenStyles";
 
 export default class AgendamentosScreen extends React.Component {
-  static navigationOptions = {
-    title: "Agendamentos"
-  };
 
   render() {
     const { navigate } = this.props.navigation;
