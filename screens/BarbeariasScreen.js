@@ -5,9 +5,6 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "./styles/BarbeariasScreenStyles";
 
 export default class BarbeariasScreen extends React.Component {
-  static navigationOptions = {
-    title: "Barbearias"
-  };
 
   render() {
     const { navigate } = this.props.navigation;

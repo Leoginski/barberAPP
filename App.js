@@ -17,20 +17,32 @@ export default class App extends Component {
   }
 }
 
-const NavigationApp = StackNavigator(
-  {
-    Launch: { screen: LaunchScreen },
-    Menu: { screen: MenuScreen },
-    Cadastro: { screen: CadastroScreen },
-  },
-  navigationOptions = {
-    title: "Title",
-    header: {
-      title: "Title",
-      style: {
-        backgroundColor: 'red'
+const NavigationApp = StackNavigator({
+  Launch: {
+    screen: LaunchScreen,
+    navigationOptions: {
+      title: "",
+      headerStyle: {
+        backgroundColor: '#1e272e'
       },
-      tintColor: 'red'
     }
-  }
-);
+  },
+  Menu: {
+    screen: MenuScreen,
+    navigationOptions: {
+      title: "Menu",
+      headerStyle: {
+        backgroundColor: '#1e272e'
+      },
+    }
+  },
+  Cadastro: {
+    screen: CadastroScreen,
+    navigationOptions: {
+      title: "Cadastre-se",
+      headerStyle: {
+        backgroundColor: '#1e272e'
+      },
+    }
+  },
+});

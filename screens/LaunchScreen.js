@@ -20,6 +20,14 @@ export default class LaunchScreen extends Component {
     };
   }
 
+  static navigationOptions = {
+    title: "",
+    headerTintColor: 'lightgrey',
+    headerStyle: {
+      backgroundColor: '#1e272e'
+    },
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
