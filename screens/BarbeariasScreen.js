@@ -36,9 +36,9 @@ export default class BarbeariasScreen extends React.Component {
       <View style={styles.container}>
         {barbearias.map((b, index) =>
           <View style={styles.barbeariaContainer} Key={index}>
-            <Text>{b.nome}</Text>
-            <Text>{b.endereco}</Text>
-            <Text>{b.cep}</Text>
+            <Text style={styles.text}>Nome: {b.nome}</Text>
+            <Text style={styles.text}>Endereco: {b.endereco}</Text>
+            <Text style={styles.text}>CEP: {b.cep}</Text>
           </View>)
         }
       </View>

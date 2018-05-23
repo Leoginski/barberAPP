@@ -11,4 +11,9 @@ export default StyleSheet.create({
     paddingVertical: 10,
     marginBottom: 10
   },
+  text: {
+    color: "#FFF",
+    marginTop: 5,
+    textAlign: "center",
+  },
 });
