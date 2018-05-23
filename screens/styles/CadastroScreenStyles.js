@@ -33,7 +33,6 @@ export default StyleSheet.create({
   buttonContainer: {
     backgroundColor: "#c0392b",
     paddingVertical: 10,
-    marginBottom: 10
   },
   buttonText: {
     textAlign: "center",

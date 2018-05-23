@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import {
   Text,
   View,
@@ -7,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native";
+
 import styles from "./styles/LaunchScreenStyles";
 
 export default class LaunchScreen extends Component {
@@ -27,7 +29,7 @@ export default class LaunchScreen extends Component {
             source={require("../images/launch-icon.png")}
             style={styles.logo}
           />
-          <Text style={styles.title}>Seu Shopping de Barbearias</Text>
+          <Text style={styles.title}></Text>
         </View>
         <View style={styles.formContainer}>
           <View style={styles.containerLoginForm}>
@@ -35,14 +37,14 @@ export default class LaunchScreen extends Component {
               value={this.state.username}
               style={styles.input}
               onChangeText={username => this.setState({ username })}
-              placeholder="Username"
+              placeholder="Usuário"
               placeholderTextColor="rgba(255,255,255,0.7)"
             />
             <TextInput
               value={this.state.password}
               style={styles.input}
               onChangeText={password => this.setState({ password })}
-              placeholder="Password"
+              placeholder="Senha"
               returnKeyType="go"
               placeholderTextColor="rgba(255,255,255,0.7)"
               secureTextEntry
@@ -52,6 +54,13 @@ export default class LaunchScreen extends Component {
               onPress={() => navigate("Menu", { state: this.state })}
             >
               <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={() => navigate("Cadastro", { state: this.state })}
+            >
+              <Text style={styles.buttonText}>Cadastrar</Text>
             </TouchableOpacity>
           </View>
         </View>
