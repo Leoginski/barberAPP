@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Toast, {SHORT} from 'react-native-easy-toast'
-import axios from 'axios';
+// import axios from 'axios';
 
 import {
   Text,
@@ -30,27 +30,27 @@ export default class LaunchScreen extends Component {
     },
   }
   
-  handleClick(event){
-    var loginUrl = "http://thebarberwebapi.azurewebsites.net/api/Authentication/login";
-    var self = this;
+  // handleClick(event){
+  //   var loginUrl = "http://thebarberwebapi.azurewebsites.net/api/Authentication/login";
+  //   var self = this;
 
-    var payload={
-    Username:this.state.Username,
-    Password:this.state.Password
-    };
+  //   var payload={
+  //   Username:this.state.Username,
+  //   Password:this.state.Password
+  //   };
 
-    axios.post(loginUrl, payload).then(response => {
-      this.refs.toast.show("sucesso");
-      if(response.data.code == 200){
-        this.refs.toast.show("Logado!");
-        navigate("Menu", { state: this.state })
-      }else{
-        this.refs.toast.show('Usuário não cadastrado!');
-      }
-    }).catch(function (error) {
-        this.refs.toast.show(error);
-    });
-  }
+  //   axios.post(loginUrl, payload).then(response => {
+  //     this.refs.toast.show("sucesso");
+  //     if(response.data.code == 200){
+  //       this.refs.toast.show("Logado!");
+  //       navigate("Menu", { state: this.state })
+  //     }else{
+  //       this.refs.toast.show('Usuário não cadastrado!');
+  //     }
+  //   }).catch(function (error) {
+  //       this.refs.toast.show(error);
+  //   });
+  // }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -85,7 +85,7 @@ export default class LaunchScreen extends Component {
             <TouchableOpacity
               style={styles.buttonContainer}
               onPress={() => navigate("Menu", { state: this.state })}
-              //onPress={(event) => this.handleClick(event)}
+              // onPress={(event) => this.handleClick(event)}
             >
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
