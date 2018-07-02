@@ -31,40 +31,26 @@ export default class LaunchScreen extends Component {
   }
   
   handleClick(event){
-    ToastAndroid.show('Função Asincrona', ToastAndroid.SHORT);
-
     var loginUrl = "http://thebarberwebapi.azurewebsites.net/api/Authentication/login";
     var self = this;
+
     var payload={
-    "Username":this.state.Username,
-    "Password":this.state.Password
-    }
-    axios.post(loginUrl, payload)
-    .then(function (response) {
-    console.log(response);
-    ToastAndroid.show(response, ToastAndroid.SHORT);
+    Username:this.state.Username,
+    Password:this.state.Password
+    };
 
-    if(response.data.code == 200){
-
-    ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
-
-    navigate("Menu", { state: this.state })
-
-    // var uploadScreen=[];
-    // uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
-    // self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
-    }
-    else if(response.data.code == 204){
-      ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
-    }
-    else{
-      ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
-    }
-    })
-    .catch(function (error) {
-      ToastAndroid.show(error, ToastAndroid.SHORT);
+    axios.post(loginUrl, payload).then(response => {
+      this.refs.toast.show("sucesso");
+      if(response.data.code == 200){
+        this.refs.toast.show("Logado!");
+        navigate("Menu", { state: this.state })
+      }else{
+        this.refs.toast.show('Usuário não cadastrado!');
+      }
+    }).catch(function (error) {
+        this.refs.toast.show(error);
     });
-    }
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -98,7 +84,8 @@ export default class LaunchScreen extends Component {
             />
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={(event) => this.handleClick(event)}
+              onPress={() => navigate("Menu", { state: this.state })}
+              //onPress={(event) => this.handleClick(event)}
             >
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
