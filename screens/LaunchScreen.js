@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import Toast, {SHORT} from 'react-native-easy-toast'
+// import axios from 'axios';
 
 import {
   Text,
@@ -15,8 +17,8 @@ export default class LaunchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: ""
+      Username: "",
+      Password: ""
     };
   }
 
@@ -27,6 +29,28 @@ export default class LaunchScreen extends Component {
       backgroundColor: '#1e272e'
     },
   }
+  
+  // handleClick(event){
+  //   var loginUrl = "http://thebarberwebapi.azurewebsites.net/api/Authentication/login";
+  //   var self = this;
+
+  //   var payload={
+  //   Username:this.state.Username,
+  //   Password:this.state.Password
+  //   };
+
+  //   axios.post(loginUrl, payload).then(response => {
+  //     this.refs.toast.show("sucesso");
+  //     if(response.data.code == 200){
+  //       this.refs.toast.show("Logado!");
+  //       navigate("Menu", { state: this.state })
+  //     }else{
+  //       this.refs.toast.show('Usuário não cadastrado!');
+  //     }
+  //   }).catch(function (error) {
+  //       this.refs.toast.show(error);
+  //   });
+  // }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -38,20 +62,21 @@ export default class LaunchScreen extends Component {
             style={styles.logo}
           />
           <Text style={styles.title}></Text>
+          <Toast ref="toast"/>
         </View>
         <View style={styles.formContainer}>
           <View style={styles.containerLoginForm}>
             <TextInput
-              value={this.state.username}
+              value={this.state.Username}
               style={styles.input}
-              onChangeText={username => this.setState({ username })}
+              onChangeText={Username => this.setState({ Username })}
               placeholder="Usuário"
               placeholderTextColor="rgba(255,255,255,0.7)"
             />
             <TextInput
-              value={this.state.password}
+              value={this.state.Password}
               style={styles.input}
-              onChangeText={password => this.setState({ password })}
+              onChangeText={Password => this.setState({ Password })}
               placeholder="Senha"
               returnKeyType="go"
               placeholderTextColor="rgba(255,255,255,0.7)"
@@ -60,6 +85,7 @@ export default class LaunchScreen extends Component {
             <TouchableOpacity
               style={styles.buttonContainer}
               onPress={() => navigate("Menu", { state: this.state })}
+              // onPress={(event) => this.handleClick(event)}
             >
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>

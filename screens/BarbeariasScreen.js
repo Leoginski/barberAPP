@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 
@@ -10,28 +11,17 @@ export default class BarbeariasScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      barbearias: [{
-        nome: "Barbearia do Tião",
-        endereco: "Rua dos Bobos Nº 0",
-        cep: "36240012",
-      },
-      {
-        nome: "Barbearia do Zé",
-        endereco: "Rua dos Foo Nº 1",
-        cep: "36240123",
-      },
-      {
-        nome: "Barbearia do Malaquias",
-        endereco: "Rua dos Foo Nº 1",
-        cep: "36240123",
-      },
-      {
-        nome: "Barbearia do Jão",
-        endereco: "Rua dos Trouxas Nº 2",
-        cep: "36241234",
-      }],
+      barbearias: [],
     }
   };
+
+  componentDidMount() {
+    axios.get('https://thebarberwebapi.azurewebsites.net/api/Barbearia')
+      .then(res => {
+        const barbearias = res.data;
+        this.setState({ barbearias });
+      })
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -42,8 +32,8 @@ export default class BarbeariasScreen extends React.Component {
         {barbearias.map((b, index) =>
           <View style={styles.barbeariaContainer} Key={index}>
             <Text style={styles.text}>Nome: {b.nome}</Text>
-            <Text style={styles.text}>Endereco: {b.endereco}</Text>
-            <Text style={styles.text}>CEP: {b.cep}</Text>
+            <Text style={styles.text}>Endereco: {b.logradouro}</Text>
+            <Text style={styles.text}>Numero: {b.numero}</Text>
             <TouchableOpacity
               style={styles.buttonContainer}
               onPress={() => navigate("Detalhes", { state: b })}
