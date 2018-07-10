@@ -25,62 +25,34 @@ const Usuario = t.struct({
   cpf: t.String
 });
 
-const formStyles = {
-  ...Form.stylesheet,
-  formGroup: {
-    normal: {
-      marginBottom: 10
-    }
-  },
-  controlLabel: {
-    normal: {
-      color: "blue",
-      fontSize: 18,
-      marginBottom: 7,
-      fontWeight: "600"
-    },
-    // the style applied when a validation error occours
-    error: {
-      color: "red",
-      fontSize: 18,
-      marginBottom: 7,
-      fontWeight: "600"
-    }
-  }
-};
-
 export default class CadastroScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dadosCadastro: {
-        email: "lucas@lucas.com",
-        username: "lucas",
-        password: "luca4125",
-        nome: "Lucas",
-        logradouro: "teste",
-        numero: 100,
-        bairro: "teste",
+        email: "teste@teste.com",
+        username: "teste123",
+        password: "teste123",
+        nome: "Testzão",
+        logradouro: "Rua Marquês Vilela",
+        numero: 999,
+        bairro: "Centro",
         cpf: "130.759.886-26"
       }
     };
   }
 
   handleSubmit = () => {
-    this.refs.toast.show("handle submit");
-
     const payload = this._form.getValue(); // use that ref to get the form value
-    if (payload) {
-      this.refs.toast.show(payload);
-      console.log(payload); // value here is an instance of Person
-    }
     axios
       .post("http://thebarberwebapi.azurewebsites.net/api/Usuario", payload, {
         headers: { "Content-Type": "application/json" }
       })
       .then(res => {
         this.refs.toast.show("Cadastrado com sucesso");
-        () => navigate("Launch", { state: this.state });
+        setTimeout(() => {
+          this.props.navigation.navigate("Launch", { state: this.state });
+        }, 1500);
       });
   };
 
