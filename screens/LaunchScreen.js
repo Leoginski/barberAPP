@@ -24,8 +24,8 @@ export default class LaunchScreen extends Component {
     super(props);
     this.state = {
       dadosLogin: {
-        Username: "",
-        Password: ""
+        Username: "teste123",
+        Password: "teste123"
       }
     };
   }

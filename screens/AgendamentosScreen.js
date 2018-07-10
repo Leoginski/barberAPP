@@ -1,9 +1,11 @@
+import axios from "axios";
 import React, { Component } from "react";
 import { Agenda } from "react-native-calendars";
 import { View, Text } from "react-native";
 import axios from "axios";
 
 import styles from "./styles/AgendamentosScreenStyles";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 
 export default class AgendamentosScreen extends React.Component {
   constructor(props) {
@@ -15,10 +17,7 @@ export default class AgendamentosScreen extends React.Component {
 
   componentDidMount() {
     axios
-      .get(
-        "https://thebarberwebapi.azurewebsites.net/api/Agendamentos/getAgendamentoPorIdUsuario/" +
-          1
-      )
+      .get("https://thebarberwebapi.azurewebsites.net/api/Agendamento")
       .then(res => {
         const agendamentos = res.data;
         this.setState({ agendamentos });
@@ -26,7 +25,6 @@ export default class AgendamentosScreen extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     const agendamentos = this.state.agendamentos;
 
     return (

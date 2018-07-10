@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, ScrollView, Text, TouchableOpacity, Image } from "react-native";
 import BarbeariaCard from "./components/BarbeariaCard";
+import axios from "axios";
 
 import styles from "./styles/BarbeariasScreenStyles";
 

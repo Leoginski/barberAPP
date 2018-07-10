@@ -10,6 +10,7 @@ export default class BarbeariaCard extends Component {
 
   render() {
     const b = this.props.barbearia;
+    const { navigate } = this.props.navigation;
 
     return (
       <View style={styles.barbeariaContainer}>
