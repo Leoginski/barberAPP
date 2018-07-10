@@ -16,6 +16,8 @@ export default class BarbeariaCard extends Component {
     }
 
     render() {
+        //const { navigate } = this.props.navigation;
+
         return (
                 <View>
                     <Text>{barbearia.Nome}</Text>

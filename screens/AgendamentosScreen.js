@@ -1,30 +1,26 @@
+import axios from "axios";
 import React, { Component } from "react";
-
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
-
 import styles from "./styles/AgendamentosScreenStyles";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 
 export default class AgendamentosScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      agendamentos: [{
-        barbearia: "Barbearia do Zé",
-        barbeiro: "Zé",
-        servico: "Aparar a Barba",
-        horario: "13:00",
-      },
-      {
-        barbearia: "Barbearia do Jão",
-        barbeiro: "Jão",
-        servico: "Corte de Cabelo",
-        horario: "14:00",
-      }],
+      agendamentos: [],
     }
   };
 
+  componentDidMount() {
+    axios
+      .get("https://thebarberwebapi.azurewebsites.net/api/Agendamento")
+      .then(res => {
+        const agendamentos = res.data;
+        this.setState({ agendamentos });
+      });
+  }
+
   render() {
-    const { navigate } = this.props.navigation;
     const agendamentos = this.state.agendamentos;
 
     return (

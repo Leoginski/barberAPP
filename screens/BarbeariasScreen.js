@@ -1,11 +1,7 @@
-import React, { Component } from "react";
 import axios from "axios";
-
-import { View, ScrollView, Text, TouchableOpacity } from "react-native";
-
-import BarbeariaCard from "./components/BarbeariaCard";
-
+import React, { Component } from "react";
 import styles from "./styles/BarbeariasScreenStyles";
+import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 
 export default class BarbeariasScreen extends React.Component {
   constructor(props) {
@@ -25,13 +21,20 @@ export default class BarbeariasScreen extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     const barbearias = this.state.barbearias;
+    const { navigate } = this.props.navigation;
 
     return (
       <ScrollView style={styles.container}>
-        {barbearias.map((b, index) => (
-          <BearbariaCard barbearia = {b}/>
+        {barbearias.map((b) => (
+          <View Key={b.idBarbearia} style={styles.barbeariaContainer}>
+            <Text style={styles.text}>Nome: {b.nome}</Text>
+            <Text style={styles.text}>Endereco: {b.logradouro}</Text>
+            <Text style={styles.text}>Numero: {b.numero}</Text>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate("Detalhes", { state: b })}>
+                <Text style={styles.buttonText}>Detalhes</Text>
+            </TouchableOpacity>
+          </View>
         ))}
       </ScrollView>
     );

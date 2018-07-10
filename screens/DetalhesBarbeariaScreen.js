@@ -1,18 +1,28 @@
+import axios from "axios";
 import React, { Component } from "react";
-
-import { View, ScrollView, Text, TouchableOpacity, Image } from "react-native";
-
-import BarbeariaCard from "./components/BarbeariaCard";
-
-import styles from "./styles/BarbeariasScreenStyles";
+import styles from "./styles/DetalhesBarbeariaStyles";
+import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 
 export default class DetalhesBarbeariaScreen extends React.Component {
     constructor(props) {
         super(props);
-    };
+        this.state = {
+          barbeiros: []
+        };
+      }
+
+    componentDidMount() {
+        axios
+          .get("https://thebarberwebapi.azurewebsites.net/api/Barbeiro")
+          .then(res => {
+            const barbeiros = res.data;
+            this.setState({ barbeiros });
+          });
+      }
 
     render() {
         const b = this.props.barbearia;
+        const { navigate } = this.props.navigation;
 
         return (
             <View style={styles.container}>
@@ -21,16 +31,15 @@ export default class DetalhesBarbeariaScreen extends React.Component {
                 <Text style={styles.text}>Cep X</Text>
 
                 <ScrollView>
-                {b.barbeiros.map((b, index) => (
+                {this.state.barbeiros.map((b, index) => (
                     <View style={styles.styleContainer} Key={index}>
                         <Text style={styles.text}>Nome: {b.nome}</Text>
-                        <Text style={styles.text}>Endereco: {b.logradouro}</Text>
-                        <Text style={styles.text}>Numero: {b.numero}</Text>
+                        <Text style={styles.text}>CPF: {b.cpf}</Text>
                         <TouchableOpacity
                         style={styles.buttonContainer}
-                        onPress={() => navigate("Detalhes", { state: b })}
+                        onPress={() => navigate("Agendar", { state: b })}
                         >
-                        <Text style={styles.buttonText}>Detalhes</Text>
+                        <Text style={styles.buttonText}>Agendar</Text>
                         </TouchableOpacity>
                     </View>
                 ))}
