@@ -1,150 +1,110 @@
 import React, { Component } from "react";
-import Toast, {SHORT} from 'react-native-easy-toast'
-import t from 'tcomb-form-native';
-import axios from 'axios';
+import Toast, { SHORT } from "react-native-easy-toast";
+import t from "tcomb-form-native";
+import axios from "axios";
 import {
-    Text,
-    View,
-    KeyboardAvoidingView,
-    Image,
-    TextInput,
-    TouchableOpacity
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TextInput,
+  TouchableOpacity
 } from "react-native";
 
 import styles from "./styles/CadastroScreenStyles";
 
 const Form = t.form.Form;
-
 const Usuario = t.struct({
-    email: t.String,
-    nome: t.maybe(t.String),
-    UserName: t.String,
-    Password: t.String
-  });
+  email: t.String,
+  username: t.String,
+  password: t.String,
+  nome: t.String,
+  logradouro: t.String,
+  numero: t.Number,
+  bairro: t.String,
+  cpf: t.String
+});
 
-  const formStyles = {
-    ...Form.stylesheet,
-    formGroup: {
-      normal: {
-        marginBottom: 10
-      },
-    },
-    controlLabel: {
-      normal: {
-        color: 'blue',
-        fontSize: 18,
-        marginBottom: 7,
-        fontWeight: '600'
-      },
-      // the style applied when a validation error occours
-      error: {
-        color: 'red',
-        fontSize: 18,
-        marginBottom: 7,
-        fontWeight: '600'
-      }
+const formStyles = {
+  ...Form.stylesheet,
+  formGroup: {
+    normal: {
+      marginBottom: 10
     }
-  }  
+  },
+  controlLabel: {
+    normal: {
+      color: "blue",
+      fontSize: 18,
+      marginBottom: 7,
+      fontWeight: "600"
+    },
+    // the style applied when a validation error occours
+    error: {
+      color: "red",
+      fontSize: 18,
+      marginBottom: 7,
+      fontWeight: "600"
+    }
+  }
+};
 
 export default class CadastroScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cliente: {
-                idCliente: "",
-                nome: "",
-                logradouro: "",
-                numero: "",
-                bairro: "",
-                cpf: "",
-            },
-            UserName: "",
-            Password: "",
-            Email: "",
-        };
-    }
-
-    handleSubmit = () => {
-        const value = this._form.getValue(); // use that ref to get the form value
-
-        axios.post('http://thebarberwebapi.azurewebsites.net/api/Usuario', value, {
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then( res=>{
-            this.refs.toast.show("OK");
-            this.refs.toast.show(res.data);                
-        })
+  constructor(props) {
+    super(props);
+    this.state = {
+      dadosCadastro: {
+        email: "lucas@lucas.com",
+        username: "lucas",
+        password: "luca4125",
+        nome: "Lucas",
+        logradouro: "teste",
+        numero: 100,
+        bairro: "teste",
+        cpf: "130.759.886-26"
       }
+    };
+  }
 
-    handleClick(event){
-        const payload = {
-            UserName: this.state.UserName,
-            Password: this.state.Password,
-            Email: this.state.Email,
-            nome: this.state.nome          
-        }
+  handleSubmit = () => {
+    this.refs.toast.show("handle submit");
 
-        axios.post('http://thebarberwebapi.azurewebsites.net/api/Usuario', payload, {
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then( res=>{
-            this.refs.toast.show(res.data);                
-        })
+    const payload = this._form.getValue(); // use that ref to get the form value
+    if (payload) {
+      this.refs.toast.show(payload);
+      console.log(payload); // value here is an instance of Person
     }
+    axios
+      .post("http://thebarberwebapi.azurewebsites.net/api/Usuario", payload, {
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(res => {
+        this.refs.toast.show("Cadastrado com sucesso");
+        () => navigate("Launch", { state: this.state });
+      });
+  };
 
-    render() {
-        const { navigate } = this.props.navigation;
-        return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                <Toast ref="toast"/>
-                <View style={styles.formContainer}>
-                    <View style={styles.containerLoginForm}>
-                        <Form 
-                        ref={c => this._form = c}
-                        type={Usuario}
-                        />
-                        {/* <TextInput
-                            value={this.state.cliente.nome}
-                            style={styles.input}
-                            onChangeText={nome => this.setState({ nome })}
-                            placeholder="Nome"
-                            placeholderTextColor="rgba(255,255,255,0.7)"
-                        />
-                        <TextInput
-                            value={this.state.Email}
-                            style={styles.input}
-                            onChangeText={email => this.setState({ email })}
-                            placeholder="Data de Nascimento"
-                            placeholderTextColor="rgba(255,255,255,0.7)"
-                        />
-                        <TextInput
-                            value={this.state.UserName}
-                            style={styles.input}
-                            onChangeText={UserName => this.setState({ UserName })}
-                            placeholder="Usuário"
-                            placeholderTextColor="rgba(255,255,255,0.7)"
-                        />
-                        <TextInput
-                            value={this.state.Password}
-                            style={styles.input}
-                            onChangeText={Password => this.setState({ Password })}
-                            placeholder="Senha"
-                            returnKeyType="go"
-                            placeholderTextColor="rgba(255,255,255,0.7)"
-                            secureTextEntry
-                        /> */}
-
-                        <TouchableOpacity
-                            style={styles.buttonContainer}
-                            //onPress={() => navigate("Launch", { state: this.state })}
-                             onPress={this.handleSubmit}
-                            // onPress={(event) => this.handleClick(event)}
-                        >
-                            <Text style={styles.buttonText}>Cadastrar</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </KeyboardAvoidingView>
-        );
-    }
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <ScrollView behavior="padding" style={styles.container}>
+        <Toast ref="toast" />
+        <View style={styles.formContainer}>
+          <View style={styles.containerLoginForm}>
+            <Form
+              ref={c => (this._form = c)}
+              value={this.state.dadosCadastro}
+              type={Usuario}
+            />
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={this.handleSubmit}
+            >
+              <Text style={styles.buttonText}>Cadastrar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
 }

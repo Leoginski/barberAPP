@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Toast, {SHORT} from 'react-native-easy-toast'
-// import axios from 'axios';
-
+import React, { Component } from "react";
+import Toast, { SHORT } from "react-native-easy-toast";
+import t from "tcomb-form-native";
+import axios from "axios";
 import {
   Text,
   View,
@@ -13,44 +13,42 @@ import {
 
 import styles from "./styles/LaunchScreenStyles";
 
+const Form = t.form.Form;
+const Login = t.struct({
+  Username: t.String,
+  Password: t.String
+});
+
 export default class LaunchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Username: "",
-      Password: ""
+      dadosLogin: {
+        Username: "lucas",
+        Password: "luca4125"
+      }
     };
   }
 
-  static navigationOptions = {
-    title: "",
-    headerTintColor: 'lightgrey',
-    headerStyle: {
-      backgroundColor: '#1e272e'
-    },
+  handleClick(event) {
+    var loginUrl =
+      "http:thebarberwebapi.azurewebsites.net/api/Authentication/login";
+
+    const payload = this._form.getValue(); // use that ref to get the form value
+
+    axios
+      .post(loginUrl, payload, {
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(response => {
+        if (response.status === 200) {
+          this.refs.toast.show("Entrou com sucesso");
+          () => navigate("Menu", { state: this.state });
+        } else {
+          this.refs.toast.show("Login ou senha incorretos");
+        }
+      });
   }
-  
-  // handleClick(event){
-  //   var loginUrl = "http://thebarberwebapi.azurewebsites.net/api/Authentication/login";
-  //   var self = this;
-
-  //   var payload={
-  //   Username:this.state.Username,
-  //   Password:this.state.Password
-  //   };
-
-  //   axios.post(loginUrl, payload).then(response => {
-  //     this.refs.toast.show("sucesso");
-  //     if(response.data.code == 200){
-  //       this.refs.toast.show("Logado!");
-  //       navigate("Menu", { state: this.state })
-  //     }else{
-  //       this.refs.toast.show('Usuário não cadastrado!');
-  //     }
-  //   }).catch(function (error) {
-  //       this.refs.toast.show(error);
-  //   });
-  // }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -61,31 +59,19 @@ export default class LaunchScreen extends Component {
             source={require("../images/launch-icon.png")}
             style={styles.logo}
           />
-          <Text style={styles.title}></Text>
-          <Toast ref="toast"/>
+          <Text style={styles.title} />
+          <Toast ref="toast" />
         </View>
         <View style={styles.formContainer}>
           <View style={styles.containerLoginForm}>
-            <TextInput
-              value={this.state.Username}
-              style={styles.input}
-              onChangeText={Username => this.setState({ Username })}
-              placeholder="Usuário"
-              placeholderTextColor="rgba(255,255,255,0.7)"
-            />
-            <TextInput
-              value={this.state.Password}
-              style={styles.input}
-              onChangeText={Password => this.setState({ Password })}
-              placeholder="Senha"
-              returnKeyType="go"
-              placeholderTextColor="rgba(255,255,255,0.7)"
-              secureTextEntry
+            <Form
+              ref={c => (this._form = c)}
+              value={this.state.dadosLogin}
+              type={Login}
             />
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={() => navigate("Menu", { state: this.state })}
-              // onPress={(event) => this.handleClick(event)}
+              onPress={event => this.handleClick(event)}
             >
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>

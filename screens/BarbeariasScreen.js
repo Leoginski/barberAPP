@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 
@@ -11,16 +11,17 @@ export default class BarbeariasScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      barbearias: [],
-    }
-  };
+      barbearias: []
+    };
+  }
 
   componentDidMount() {
-    axios.get('https://thebarberwebapi.azurewebsites.net/api/Barbearia')
+    axios
+      .get("https://thebarberwebapi.azurewebsites.net/api/Barbearia")
       .then(res => {
         const barbearias = res.data;
         this.setState({ barbearias });
-      })
+      });
   }
 
   render() {
@@ -29,7 +30,7 @@ export default class BarbeariasScreen extends React.Component {
 
     return (
       <ScrollView style={styles.container}>
-        {barbearias.map((b, index) =>
+        {barbearias.map((b, index) => (
           <View style={styles.barbeariaContainer} Key={index}>
             <Text style={styles.text}>Nome: {b.nome}</Text>
             <Text style={styles.text}>Endereco: {b.logradouro}</Text>
@@ -40,8 +41,8 @@ export default class BarbeariasScreen extends React.Component {
             >
               <Text style={styles.buttonText}>Detalhes</Text>
             </TouchableOpacity>
-          </View>)
-        }
+          </View>
+        ))}
       </ScrollView>
     );
   }
