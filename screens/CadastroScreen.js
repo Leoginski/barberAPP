@@ -5,7 +5,7 @@ import axios from 'axios';
 import {
     Text,
     View,
-    KeyboardAvoidingView,
+    ScrollView,
     Image,
     TextInput,
     TouchableOpacity
@@ -15,64 +15,42 @@ import styles from "./styles/CadastroScreenStyles";
 
 const Form = t.form.Form;
 
-const Usuario = t.struct({
-    email: t.String,
-    nome: t.maybe(t.String),
-    UserName: t.String,
-    Password: t.String
+const Barbeiro = t.struct({
+    nome: t.String,
+    logradouro: t.String,
+    numero: t.String,
+    complemento: t.String,
+    bairro: t.String,
+    cpf: t.String,
   });
-
-  const formStyles = {
-    ...Form.stylesheet,
-    formGroup: {
-      normal: {
-        marginBottom: 10
-      },
-    },
-    controlLabel: {
-      normal: {
-        color: 'blue',
-        fontSize: 18,
-        marginBottom: 7,
-        fontWeight: '600'
-      },
-      // the style applied when a validation error occours
-      error: {
-        color: 'red',
-        fontSize: 18,
-        marginBottom: 7,
-        fontWeight: '600'
-      }
-    }
-  }  
 
 export default class CadastroScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             cliente: {
-                idCliente: "",
-                nome: "",
-                logradouro: "",
-                numero: "",
-                bairro: "",
-                cpf: "",
+                nome: "12345",
+                logradouro: "12345",
+                numero: "12345",
+                bairro: "12345",
+                cpf: "12345",
+                cep: "12345",
             },
-            UserName: "",
-            Password: "",
-            Email: "",
+            UserName: "12345",
+            Password: "12345",
+            Email: "12345@12345.com",
         };
     }
 
     handleSubmit = () => {
         const value = this._form.getValue(); // use that ref to get the form value
 
-        axios.post('http://thebarberwebapi.azurewebsites.net/api/Usuario', value, {
+        axios.post('http://thebarberwebapi.azurewebsites.net/api/Barbeiro', value, {
             headers: { 'Content-Type': 'application/json' }
         })
         .then( res=>{
-            this.refs.toast.show("OK");
-            this.refs.toast.show(res.data);                
+            this.refs.toast.show(res.data);            
+            // this.refs.toast.show(JSON.stringify(res.data));                    
         })
       }
 
@@ -81,28 +59,28 @@ export default class CadastroScreen extends Component {
             UserName: this.state.UserName,
             Password: this.state.Password,
             Email: this.state.Email,
-            nome: this.state.nome          
+            Cliente: this.state.cliente
         }
-
+        this.refs.toast.show("teste");                
         axios.post('http://thebarberwebapi.azurewebsites.net/api/Usuario', payload, {
             headers: { 'Content-Type': 'application/json' }
         })
         .then( res=>{
-            this.refs.toast.show(res.data);                
+            this.refs.toast.show(JSON.stringify(res.data));                
         })
     }
 
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <ScrollView behavior="padding" style={styles.container}>
                 <Toast ref="toast"/>
                 <View style={styles.formContainer}>
                     <View style={styles.containerLoginForm}>
-                        <Form 
+                        {/* <Form 
                         ref={c => this._form = c}
-                        type={Usuario}
-                        />
+                        type={Barbeiro}
+                        /> */}
                         {/* <TextInput
                             value={this.state.cliente.nome}
                             style={styles.input}
@@ -137,14 +115,14 @@ export default class CadastroScreen extends Component {
                         <TouchableOpacity
                             style={styles.buttonContainer}
                             //onPress={() => navigate("Launch", { state: this.state })}
-                             onPress={this.handleSubmit}
-                            // onPress={(event) => this.handleClick(event)}
+                            //  onPress={this.handleSubmit}
+                             onPress={(event) => this.handleClick(event)}
                         >
                             <Text style={styles.buttonText}>Cadastrar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-            </KeyboardAvoidingView>
+            </ScrollView>
         );
     }
 }
