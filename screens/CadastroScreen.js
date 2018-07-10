@@ -22,7 +22,8 @@ const Usuario = t.struct({
   logradouro: t.String,
   numero: t.Number,
   bairro: t.String,
-  cpf: t.String
+  cpf: t.String,
+  barbeiro: t.Boolean
 });
 
 export default class CadastroScreen extends Component {
