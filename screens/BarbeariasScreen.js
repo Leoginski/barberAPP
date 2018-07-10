@@ -31,17 +31,7 @@ export default class BarbeariasScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         {barbearias.map((b, index) => (
-          <View style={styles.barbeariaContainer} Key={index}>
-            <Text style={styles.text}>Nome: {b.nome}</Text>
-            <Text style={styles.text}>Endereco: {b.logradouro}</Text>
-            <Text style={styles.text}>Numero: {b.numero}</Text>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={() => navigate("Detalhes", { state: b })}
-            >
-              <Text style={styles.buttonText}>Detalhes</Text>
-            </TouchableOpacity>
-          </View>
+          <BearbariaCard barbearia = {b}/>
         ))}
       </ScrollView>
     );

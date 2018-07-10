@@ -12,6 +12,7 @@ export default class DetalhesBarbeariaScreen extends React.Component {
     };
 
     render() {
+        const b = this.props.barbearia;
 
         return (
             <View style={styles.container}>
@@ -20,34 +21,19 @@ export default class DetalhesBarbeariaScreen extends React.Component {
                 <Text style={styles.text}>Cep X</Text>
 
                 <ScrollView>
-                    <View style={styles.styleContainer}>
-                        <Text style={styles.text}>Desfarçado</Text>
-                        <Image
-                            source={require("../images/launch-icon.png")}
-                            style={styles.logo}
-                        />
+                {b.barbeiros.map((b, index) => (
+                    <View style={styles.styleContainer} Key={index}>
+                        <Text style={styles.text}>Nome: {b.nome}</Text>
+                        <Text style={styles.text}>Endereco: {b.logradouro}</Text>
+                        <Text style={styles.text}>Numero: {b.numero}</Text>
+                        <TouchableOpacity
+                        style={styles.buttonContainer}
+                        onPress={() => navigate("Detalhes", { state: b })}
+                        >
+                        <Text style={styles.buttonText}>Detalhes</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.styleContainer}>
-                        <Text style={styles.text}>Bigode</Text>
-                        <Image
-                            source={require("../images/launch-icon.png")}
-                            style={styles.logo}
-                        />
-                    </View>
-                    <View style={styles.styleContainer}>
-                        <Text style={styles.text}>Cavanhaque</Text>
-                        <Image
-                            source={require("../images/launch-icon.png")}
-                            style={styles.logo}
-                        />
-                    </View>
-                    <View style={styles.styleContainer}>
-                        <Text style={styles.text}>Asadelta</Text>
-                        <Image
-                            source={require("../images/launch-icon.png")}
-                            style={styles.logo}
-                        />
-                    </View>
+                ))}
                 </ScrollView>
 
             </View>
