@@ -56,3 +56,4 @@ buck-out/
 *.jsbundle
 
 /android/gradle.properties
+/android/local.properties
