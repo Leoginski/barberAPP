@@ -2,10 +2,9 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    padding: 20,
     flex: 1,
-    backgroundColor: "#1e272e",
-},
+    backgroundColor: "#1e272e"
+  },
   agendamentoContainer: {
     backgroundColor: "#c0392b",
     paddingVertical: 10,
@@ -14,6 +13,6 @@ export default StyleSheet.create({
   text: {
     color: "#FFF",
     marginTop: 5,
-    textAlign: "center",
-  },
+    textAlign: "center"
+  }
 });

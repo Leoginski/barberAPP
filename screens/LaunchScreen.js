@@ -41,14 +41,10 @@ export default class LaunchScreen extends Component {
         headers: { "Content-Type": "application/json" }
       })
       .then(response => {
-        if (response.status === 200) {
-          this.refs.toast.show("Entrou com sucesso");
-          setTimeout(() => {
-            this.props.navigation.navigate("Menu", { state: this.state });
-          }, 1500);
-        } else {
-          this.refs.toast.show("Login ou senha incorretos");
-        }
+        this.refs.toast.show("Login feito com sucesso!");
+        setTimeout(() => {
+          this.props.navigation.navigate("Menu", { state: this.state });
+        }, 1500);
       })
       .catch(error => {
         if (error.response.status.toString() == "400") {
