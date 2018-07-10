@@ -13,12 +13,20 @@ export default class BarbeariaCard extends Component {
     }
 
     render() {
-        const barbearia = this.props.barbearia;
+        const b = this.props.barbearia;
 
         return (
-                <View>
-                    <Text>{barbearia.Nome}</Text>
-                </View>
+            <View style={styles.barbeariaContainer} Key={index}>
+            <Text style={styles.text}>Nome: {b.nome}</Text>
+            <Text style={styles.text}>Endereco: {b.logradouro}</Text>
+            <Text style={styles.text}>Numero: {b.numero}</Text>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={() => navigate("Detalhes", { state: b })}
+            >
+              <Text style={styles.buttonText}>Detalhes</Text>
+            </TouchableOpacity>
+          </View>
         );
     }
 }
