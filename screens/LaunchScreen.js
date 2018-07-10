@@ -24,8 +24,8 @@ export default class LaunchScreen extends Component {
     super(props);
     this.state = {
       dadosLogin: {
-        Username: "teste123",
-        Password: "teste123"
+        Username: "",
+        Password: ""
       }
     };
   }
@@ -48,6 +48,11 @@ export default class LaunchScreen extends Component {
           }, 1500);
         } else {
           this.refs.toast.show("Login ou senha incorretos");
+        }
+      })
+      .catch(error => {
+        if (error.response.status.toString() == "400") {
+          this.refs.toast.show("Login ou senha incorretos!");
         }
       });
   }

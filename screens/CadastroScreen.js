@@ -30,14 +30,14 @@ export default class CadastroScreen extends Component {
     super(props);
     this.state = {
       dadosCadastro: {
-        email: "teste@teste.com",
-        username: "teste123",
-        password: "teste123",
-        nome: "Testzão",
-        logradouro: "Rua Marquês Vilela",
-        numero: 999,
-        bairro: "Centro",
-        cpf: "130.759.886-26"
+        email: "",
+        username: "",
+        password: "",
+        nome: "",
+        logradouro: "",
+        numero: "",
+        bairro: "",
+        cpf: ""
       }
     };
   }
@@ -53,6 +53,11 @@ export default class CadastroScreen extends Component {
         setTimeout(() => {
           this.props.navigation.navigate("Launch", { state: this.state });
         }, 1500);
+      })
+      .catch(error => {
+        if (error.response.status.toString() == "400") {
+          this.refs.toast.show("Erro ao cadastrar usuário!");
+        }
       });
   };
 
